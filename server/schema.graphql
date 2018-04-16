@@ -1,0 +1,9 @@
+type Query {
+  techs: [Tech]
+}
+
+type Tech {
+  id: String!
+  name: String!
+  votes: Int!
+}

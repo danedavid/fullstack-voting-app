@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
@@ -24,6 +25,7 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
+app.use('*', cors());
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));

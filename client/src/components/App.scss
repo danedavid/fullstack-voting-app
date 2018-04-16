@@ -1,2 +1,12 @@
-.app-container {
+.thumbnail-container {
+  display: flex;
+  width: 100vw;
+  justify-content: space-around;
+  padding-top: 24px;
+
+  .tech-item-card {
+    height: 200px;
+    width: 200px;
+    box-shadow: 2px 2px 8px 0px #000000;
+  }
 }

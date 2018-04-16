@@ -5,5 +5,6 @@ type Query {
 type Tech {
   id: String!
   name: String!
+  image: String!
   votes: Int!
 }

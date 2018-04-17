@@ -17,6 +17,23 @@ mongoose.connect('mongodb://danedavid:password@ds121889.mlab.com:21889/votingapp
 const resolvers = {
   Query: {
     techs: () => Tech.find({}).lean().exec()
+  },
+  Mutation: {
+    upvote: (root, { id }) => Tech.findOneAndUpdate(
+      { id },
+      { $inc: { votes: 1 } },
+      { new: true }
+    ).catch(err => {
+      console.log('Database error: ', err);
+    }),
+
+    resetVote: (root, { id }) => Tech.findOneAndUpdate(
+      { id },
+      { votes: 0 },
+      { new: true }
+    ).catch(err => {
+      console.log('Database error: ', err);
+    })
   }
 };
 

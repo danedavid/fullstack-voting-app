@@ -8,3 +8,10 @@ type Tech {
   image: String!
   votes: Int!
 }
+
+type Mutation {
+  # Mutation to increase vote by one
+  upvote(id: String): Tech
+  # Mutation to reset vote back to zero
+  resetVote(id: String): Tech
+}

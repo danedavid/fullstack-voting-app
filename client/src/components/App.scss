@@ -61,11 +61,17 @@
     outline: 0;
     border: 0;
     height: 40px;
-    width: 100px;
+    width: 140px;
     font-size: 20px;
     font-weight: bold;
     background-color: #42BCEE;
     color: #fff;
     border-radius: 40px;
+    cursor: pointer;
+
+    &:disabled,
+    &[disabled] {
+      background-color: #ccc;
+    }
   }
 }

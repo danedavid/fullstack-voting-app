@@ -1,7 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import './App.scss';
+
+const UPVOTE = gql`
+  mutation upvote($id: String!) {
+    upvote(id: $id) {
+      votes
+    }
+  }
+`;
 
 class App extends Component {
   constructor() {
@@ -51,9 +59,21 @@ class App extends Component {
         </div>
         {
           selectedId &&
-            <div className='vote-button-container'>
-              <button className='vote-button'>Vote!</button>
-            </div>
+            <Mutation mutation={UPVOTE}>
+              {
+                (upvote, { data, loading, called }) => (
+                  <div className='vote-button-container'>
+                    <button
+                      disabled={called}
+                      className='vote-button'
+                      onClick={() => upvote({ variables: { id: selectedId }})}
+                    >
+                      { loading ? 'Loading...' : called ? 'Voted!' : 'Vote!' }
+                    </button>
+                  </div>
+                )
+              }
+            </Mutation>
         }
       </Fragment>
     );

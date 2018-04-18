@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node .",
     "client": "cd client && webpack-dev-server --open",
-    "build": "cd client && webpack"
+    "build": "cd client && webpack",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",

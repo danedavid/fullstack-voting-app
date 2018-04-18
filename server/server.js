@@ -2,12 +2,13 @@ const fs = require('fs');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
 const Tech = require('./models/tech');
-const typeDefs = fs.readFileSync('./schema.graphql').toString();
+const typeDefs = fs.readFileSync(path.resolve(__dirname, 'schema.graphql')).toString();
 
 const app = express();
 const PORT = 5000;
@@ -47,6 +48,11 @@ app.use('*', cors());
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
-app.listen(PORT, () => {
-  console.log(`GraphQL is running at http://localhost:${PORT}/graphiql`);
-});
+module.exports = {
+  graphql: graphqlExpress({ schema }),
+  graphiql: graphiqlExpress({ endpointURL: '/graphql' })
+};
+
+//app.listen(PORT, () => {
+//  console.log(`GraphQL is running at http://localhost:${PORT}/graphiql`);
+//});

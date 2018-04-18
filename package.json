@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "export PORT=8000 && node .",
+    "start": "node .",
     "client": "cd client && webpack-dev-server --open",
     "build": "cd client && webpack"
   },

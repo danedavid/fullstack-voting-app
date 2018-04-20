@@ -7,8 +7,7 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/bundle.js'
   },
-  // 'mode' option - new in Webpack 4
-  mode: 'development',
+  devtool: 'source-map',
   devServer: {
     contentBase: './dist'
   },

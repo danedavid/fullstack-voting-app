@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { graphql, Mutation } from 'react-apollo';
-import gql from 'graphql-tag';
+import Mutation from 'react-apollo/Mutation';
+import { graphql } from 'react-apollo/graphql';
+import gql from 'graphql-tag/lib/graphql-tag.umd.js';
 import './App.scss';
 
 const UPVOTE = gql`

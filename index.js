@@ -11,13 +11,15 @@ app.use(compression());
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
 
+// Server end-points
+app.post('/graphql',  bodyParser.json(), graphql);
+app.get('/graphiql',  bodyParser.json(), graphiql);
+
 // Serve client app
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client', 'dist', 'index.html'));
 });
 
-app.post('/graphql',  bodyParser.json(), graphql);
-app.get('/graphiql',  bodyParser.json(), graphiql);
 
 app.listen(PORT, () => {
   console.log(`App listening on ${PORT}`)

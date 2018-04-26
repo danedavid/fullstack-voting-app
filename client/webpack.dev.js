@@ -10,7 +10,8 @@ const config = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './dist'
+    contentBase: './dist',
+    historyApiFallback: true
   },
   module: {
     rules: [

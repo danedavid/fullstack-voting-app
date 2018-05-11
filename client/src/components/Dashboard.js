@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import Mutation from 'react-apollo/Mutation';
 import { graphql } from 'react-apollo/graphql';
 import gql from 'graphql-tag/lib/graphql-tag.umd.js';
@@ -16,7 +17,7 @@ class Dashboard extends Component {
   constructor() {
     super();
     this.state = {
-      selectedId: 'react'
+      selectedId: null
     };
   }
 
@@ -32,6 +33,11 @@ class Dashboard extends Component {
   render() {
     const { data } = this.props;
     const { selectedId } = this.state;
+    const { accessToken } = data;
+
+    if ( accessToken && accessToken.accessToken === null ) {
+      return <Redirect to='/login' />;
+    }
 
     return (
       <Fragment>
@@ -84,6 +90,9 @@ class Dashboard extends Component {
 export default graphql(
   gql`
     query myQuery {
+      accessToken @client {
+        accessToken
+      }
       techs {
         name
         id

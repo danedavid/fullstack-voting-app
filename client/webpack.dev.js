@@ -11,7 +11,10 @@ const config = {
   devtool: 'source-map',
   devServer: {
     contentBase: './dist',
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/': 'http://localhost:8000'
+    }
   },
   module: {
     rules: [

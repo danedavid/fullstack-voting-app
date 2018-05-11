@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo/graphql';
+import gql from 'graphql-tag/lib/graphql-tag.umd.js';
 //import './Login.scss';
 
 
@@ -33,7 +35,14 @@ class Login extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { accessToken } = this.state;
     if ( prevState.accessToken === null && accessToken ) {
-      this.props.history.push('/dashboard');
+      this.props.updateAccessToken(accessToken)
+        .then(data => {
+          this.setState({ accessToken });
+          this.props.history.push('/dashboard');
+        })
+        .catch(err => {
+          console.log('Error while updating cache: ', err);
+        });
     }
   }
 
@@ -50,4 +59,15 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default graphql(
+  gql`
+    mutation updateAccessToken($accessToken: String) {
+      updateAccessToken(accessToken: $accessToken) @client
+    }
+  `,
+  {
+    props: ({ mutate }) => ({
+      updateAccessToken: accessToken => mutate({ variables: { accessToken } })
+    })
+  }
+)(Login);
